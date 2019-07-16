@@ -9,3 +9,10 @@ GET /home
   result, big_news, big_news_list
 }
 ```
+
+GET /board/:id/:page
+``` json
+{
+  result, topic
+}
+```

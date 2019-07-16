@@ -20,7 +20,7 @@ app.get("/home", async (req, res) => {
   res.send({ result: true, data: arr });
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 const getIndex = async () => {
   try {

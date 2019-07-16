@@ -1,6 +1,6 @@
 # soccersuck_api
 
-Currently, I have create the fetching script for looking up the soccersuck.com.
+Currently, I have create the fetching script for looking up www.soccersuck.com.
 ----
 
 GET /home 

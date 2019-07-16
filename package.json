@@ -1,0 +1,19 @@
+{
+  "name": "soccersuck_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wutthiwat Sornso",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "circular-json": "^0.5.9",
+    "express": "^4.17.1",
+    "lodash": "^4.17.14",
+    "node-html-parser": "^1.1.16",
+    "striptags": "^3.1.1"
+  }
+}

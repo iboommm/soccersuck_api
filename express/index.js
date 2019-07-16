@@ -4,7 +4,11 @@ const { parse } = require("node-html-parser");
 const striptags = require("striptags");
 const _ = require("lodash");
 
+
+
 const app = express();
+
+const board = require('./board');
 const port = 80;
 
 app.get("/", (req, res) => res.send("Service is running!"));
@@ -19,6 +23,8 @@ app.get("/home", async (req, res) => {
   };
   res.send({ result: true, data: arr });
 });
+app.use('/', board);
+
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 

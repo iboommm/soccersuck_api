@@ -13,7 +13,9 @@ app.get("/home", async (req, res) => {
   let data = await getIndex();
   let arr = {
     big_news: queryBigNews(data),
-    big_news_list: queryListBigNews(data)
+    big_news_list: queryListBigNews(data),
+    news_today_list: queryListNews(data, 'today'),
+    news_yesterday_list: queryListNews(data, 'yesterday')
   };
   res.send({ result: true, data: arr });
 });
@@ -71,3 +73,22 @@ const queryListBigNews = data => {
   );
   return _.compact(result);
 };
+
+const queryListNews = (data, mode) => {
+    const root = parse(data.data);
+    let result = _.map(
+      root.querySelectorAll(`${(mode == "today" ? ".lastpanel1":".lastpanel2")} .latestnews_tr`),
+      (data, index) => {
+          let title = data.attributes.title;
+          let icon = _.compact(_.map(data.querySelectorAll("img"), img => {
+            if(_.includes(img.attributes.src, 'soccersuck')) {
+                return img.attributes.src;
+            }
+        }))[0];
+        let link = data.querySelector("a").attributes.href
+       return {title,icon,link}
+      }
+    );
+    return _.compact(result);
+  };
+  

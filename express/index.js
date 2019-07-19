@@ -8,7 +8,7 @@ const app = express();
 
 const board = require('./board');
 const topic = require('./topic');
-const port = 80;
+const port = 8888;
 
 app.get("/", (req, res) => res.send("Service is running!"));
 

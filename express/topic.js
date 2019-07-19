@@ -3,8 +3,6 @@ const { parse } = require("node-html-parser");
 const striptags = require("striptags");
 const _ = require("lodash");
 
-const CircularJSON = require("circular-json");
-
 const topic = require('express').Router();
 
 topic.get("/", (req, res) => res.send("Service is running!"));

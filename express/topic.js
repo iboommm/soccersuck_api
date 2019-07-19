@@ -14,10 +14,16 @@ topic.get("/topic/:id/:page", async(req, res) => {
     let page = req.params.page || 1;
     let data = await getTopic(id, page);
     let root = parse(data.data);
-    let arr = {
-        topic: queryTopic(root),
-        comment: queryComment(root, page)
-    };
+    let arr = {};
+    if (page == 1)
+        arr = {
+            topic: queryTopic(root),
+            comment: queryComment(root, page)
+        };
+    else
+        arr = {
+            comment: queryComment(root, page)
+        };
     res.send({ result: true, data: arr });
 });
 
@@ -32,7 +38,7 @@ const getTopic = async(id, page) => {
 };
 
 const queryTopic = root => {
-    let title = root.querySelector(".post_head_topic_news").innerHTML;
+    let title = (root.querySelector(".post_head_topic_news") || root.querySelector(".post_panel_td_right .post_head_topic")).innerHTML;
     let description = root.querySelector(".post_desc").removeWhitespace().innerHTML;
     let datetime = _.split(root.querySelector(".topic_thead_td").innerHTML, "by")[0];
     let create_by = striptags(_.split(root.querySelector(".topic_thead_td").innerHTML, "by")[1]).slice(1, -1);

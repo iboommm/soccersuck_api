@@ -13,6 +13,7 @@
     "circular-json": "^0.5.9",
     "express": "^4.17.1",
     "lodash": "^4.17.14",
+    "moment": "^2.24.0",
     "node-html-parser": "^1.1.16",
     "striptags": "^3.1.1"
   }

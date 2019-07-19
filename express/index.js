@@ -10,6 +10,14 @@ const board = require('./board');
 const topic = require('./topic');
 const port = 8888;
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+
 app.get("/", (req, res) => res.send("Service is running!"));
 
 app.get("/home", async(req, res) => {
@@ -25,7 +33,7 @@ app.get("/home", async(req, res) => {
 
 app.use('/', board);
 app.use('/', topic);
-
+app.use(allowCrossDomain);
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 

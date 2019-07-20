@@ -54,11 +54,19 @@ const getTopic = async(id, page) => {
 };
 
 const queryTopic = root => {
-    let title = (root.querySelector(".post_head_topic_news") || root.querySelector(".post_panel_td_right .post_head_topic")).innerHTML;
-    let description = root.querySelector(".post_desc").removeWhitespace().innerHTML;
-    let datetime = _.split(root.querySelector(".topic_thead_td").innerHTML, "by")[0];
-    let create_by = striptags(_.split(root.querySelector(".topic_thead_td").innerHTML, "by")[1]).slice(1, -1);
+    let [title, description, datetime, create_by] = ['', '', '', '']
+    if (root.querySelector(".post_head_topic_news")) {
+        title = root.querySelector(".post_head_topic_news").innerHTML;
+        description = root.querySelector(".post_desc").removeWhitespace().innerHTML;
+        datetime = _.split(root.querySelector(".topic_thead_td").innerHTML, "by")[0];
+        create_by = striptags(_.split(root.querySelector(".topic_thead_td").innerHTML, "by")[1]).slice(1, -1);
 
+    } else {
+        title = root.querySelector(".post_panel_td_right .post_head_topic").innerHTML;
+        description = root.querySelector(".post_desc").removeWhitespace().innerHTML;
+        datetime = root.querySelector('.userinfo_time span').innerHTML;
+        create_by = root.querySelector('.user_name a').innerHTML;
+    }
     let result = { title, description, datetime, create_by };
     return result;
 };
@@ -69,8 +77,6 @@ const queryComment = (root, page) => {
             let create_by = cm.querySelector('.user_name a').innerHTML;
             let create_time = cm.querySelector('.userinfo_time span').innerHTML;
             let description = cm.querySelector('.post_panel_td_right .post_desc').removeWhitespace().innerHTML;
-
-
             return { create_by, description, create_time }
         }
     });

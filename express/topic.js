@@ -7,6 +7,24 @@ const topic = require('express').Router();
 
 topic.get("/", (req, res) => res.send("Service is running!"));
 
+topic.get("/topic/:id", async(req, res) => {
+    let id = req.params.id || 1;
+    let page = 1;
+    let data = await getTopic(id, page);
+    let root = parse(data.data);
+    let arr = {};
+    if (page == 1)
+        arr = {
+            topic: queryTopic(root),
+            comment: queryComment(root, page)
+        };
+    else
+        arr = {
+            comment: queryComment(root, page)
+        };
+    res.send({ result: true, data: arr });
+});
+
 topic.get("/topic/:id/:page", async(req, res) => {
     let id = req.params.id || 1;
     let page = req.params.page || 1;

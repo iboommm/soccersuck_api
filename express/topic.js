@@ -58,16 +58,16 @@ const queryTopic = root => {
     if (root.querySelector(".post_head_topic_news")) {
         title = root.querySelector(".post_head_topic_news").innerHTML;
         description = root.querySelector(".post_desc").removeWhitespace().innerHTML;
-        datetime = _.split(root.querySelector(".topic_thead_td").innerHTML, "by")[0];
+        create_time = _.split(root.querySelector(".topic_thead_td").innerHTML, "by")[0];
         create_by = striptags(_.split(root.querySelector(".topic_thead_td").innerHTML, "by")[1]).slice(1, -1);
 
     } else {
         title = root.querySelector(".post_panel_td_right .post_head_topic").innerHTML;
         description = root.querySelector(".post_desc").removeWhitespace().innerHTML;
-        datetime = root.querySelector('.userinfo_time span').innerHTML;
+        create_time = root.querySelector('.userinfo_time span').innerHTML;
         create_by = root.querySelector('.user_name a').innerHTML;
     }
-    let result = { title, description, datetime, create_by };
+    let result = { title, description, create_time, create_by };
     return result;
 };
 

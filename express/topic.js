@@ -54,6 +54,7 @@ const getTopic = async(id, page) => {
 };
 
 const queryTopic = root => {
+    let reun_list = "";
     let [title, description, datetime, create_by] = ['', '', '', '']
     if (root.querySelector(".post_head_topic_news")) {
         title = root.querySelector(".post_head_topic_news").innerHTML;
@@ -67,17 +68,26 @@ const queryTopic = root => {
         create_time = root.querySelector('.userinfo_time span').innerHTML;
         create_by = root.querySelector('.user_name a').innerHTML;
     }
-    let result = { title, description, create_time, create_by };
-    return result;
+    let str_pos = striptags(root.querySelectorAll('.topic_paginator')[1].removeWhitespace().innerHTML).indexOf('ไปที่หน้าGO');
+    let max_page = striptags(root.querySelectorAll('.topic_paginator')[1].removeWhitespace().innerHTML)[str_pos - 1]
+    let plap = root.querySelector('.addpoint_score').innerHTML;
+    let plap_list = striptags(root.querySelector('.userPlabBox').removeWhitespace().innerHTML);
+    let reun = root.querySelector('.dispoint_score').innerHTML;
+    return { title, description, create_time, create_by, plap, plap_list, reun, reun_list, max_page };;
 };
 
 const queryComment = (root, page) => {
     let comment = _.map(root.querySelectorAll('.post_panel'), (cm, key) => {
         if ((key != 0 && page == 1) || page > 1) {
+            let reun_list = "";
+            let isTopment = _.includes(cm.querySelector('.post_head_reply').innerHTML, "Top Comment");
             let create_by = cm.querySelector('.user_name a').innerHTML;
             let create_time = cm.querySelector('.userinfo_time span').innerHTML;
             let description = cm.querySelector('.post_panel_td_right .post_desc').removeWhitespace().innerHTML;
-            return { create_by, description, create_time }
+            let plap = cm.querySelector('.addpoint_score').innerHTML;
+            let plap_list = striptags(cm.querySelector('.userPlabBox').removeWhitespace().innerHTML);
+            let reun = cm.querySelector('.dispoint_score').innerHTML;
+            return { create_by, description, create_time, isTopment, plap, plap_list, reun, reun_list }
         }
     });
     let result = comment;

@@ -15,6 +15,6 @@
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "node-html-parser": "^1.1.16",
-    "striptags": "^3.1.1"
+    "striptags": "^3.2.0"
   }
 }
